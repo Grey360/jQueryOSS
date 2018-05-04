@@ -1,12 +1,12 @@
 const url = "https://jsonplaceholder.typicode.com/users";
 let jsonArray;
-
+let size;
 // Our ajax call to get the API object.
 const ajaxOptions = {
     url: url,
     success: function(result){
-        console.log(result);
         jsonArray = result;
+        size = jsonArray.length-1;
     }
 }
 
@@ -20,9 +20,7 @@ const details = document.getElementById("details");
 form.onsubmit = (event) => {
     event.stopImmediatePropagation();
     event.preventDefault();
-    console.log(jsonArray);
-    console.log(input.value);
-    
-    let value = JSON.stringify(jsonArray[input.value]);
-    details.innerHTML = value;
+    let inp = parseInt(input.value);
+    console.log(typeof inp);
+    details.innerHTML = inp > -1 && inp < jsonArray.length ? JSON.stringify(jsonArray[inp], undefined, "\t") : "Please use a number between 0 and " + size + "!";       
 }
